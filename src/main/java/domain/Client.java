@@ -2,9 +2,13 @@ package domain;
 
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Required;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.util.List;
 
@@ -17,9 +21,12 @@ public class Client implements Serializable {
     private int id;
 
     @NotEmpty
+    @Min(5)
+    @Max(50)
     private String name;
 
     @Email
+    @NotBlank
     private String email;
 
     private String tel;

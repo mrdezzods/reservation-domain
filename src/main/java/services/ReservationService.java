@@ -5,6 +5,8 @@ import db.ReservationRepository;
 import db.ReservationRepositoryFactory;
 import domain.Reservation;
 
+import java.util.Set;
+
 public class ReservationService {
     ReservationRepository repository;
 
@@ -21,7 +23,11 @@ public class ReservationService {
         return repository.get(reservationId);
     }
 
-    public void deleteReservation(Reservation reservation) {
+    public void deleteReservation(Integer reservation) {
         repository.deleteReservation(reservation);
+    }
+
+    public Set<Reservation> getAll() {
+        return repository.getAll();
     }
 }

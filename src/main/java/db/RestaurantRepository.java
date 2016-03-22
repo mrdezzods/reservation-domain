@@ -3,7 +3,7 @@ package db;
 import domain.Restaurant;
 import org.springframework.data.repository.NoRepositoryBean;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by mrdezzods on 27/02/16.
@@ -11,7 +11,7 @@ import java.util.List;
 @NoRepositoryBean
 public interface RestaurantRepository {
 
-    List<Restaurant> getAll();
+    Set<Restaurant> getAll();
 
     void delete(Restaurant restaurant);
 

@@ -86,4 +86,35 @@ public class Restaurant implements Serializable {
     }
 
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setReservationOpensAt(String reservationOpensAt) {
+        this.reservationOpensAt = reservationOpensAt;
+    }
+
+    public void setReservationClosesAt(String reservationClosesAt) {
+        this.reservationClosesAt = reservationClosesAt;
+    }
+
+    public void setMaxReservations(int maxReservations) {
+        this.maxReservations = maxReservations;
+    }
 }

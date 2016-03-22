@@ -4,7 +4,7 @@ import db.RestaurantRepository;
 import db.RestaurantRepositoryFactory;
 import domain.Restaurant;
 
-import java.util.List;
+import java.util.Set;
 
 
 public class RestaurantService {
@@ -17,7 +17,7 @@ public class RestaurantService {
     }
 
 
-    public List<Restaurant> getAll() {
+    public Set<Restaurant> getAll() {
         return repository.getAll();
     }
 

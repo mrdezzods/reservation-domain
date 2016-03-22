@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.Set;
 
 
 public class ReservationSQLRepository implements ReservationRepository {
@@ -55,8 +56,12 @@ public class ReservationSQLRepository implements ReservationRepository {
         }
     }
 
-    public void deleteReservation(Reservation reservation) {
+    public void deleteReservation(Integer reservation) {
 
+    }
+
+    public Set<Reservation> getAll() {
+        return null;
     }
 
 }

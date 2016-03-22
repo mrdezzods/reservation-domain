@@ -4,7 +4,7 @@ package domain;
 import services.ReservationService;
 import services.RestaurantService;
 
-import java.util.List;
+import java.util.Set;
 
 public class AppFacade {
 
@@ -18,7 +18,7 @@ public class AppFacade {
     }
 
 
-    public List<Restaurant> getAllRestaurants() {
+    public Set<Restaurant> getAllRestaurants() {
         return restaurantService.getAll();
     }
 
@@ -27,8 +27,8 @@ public class AppFacade {
         reservationService.addReservation(reservation);
     }
 
-    public void deleteReservation(Reservation reservation) {
-        reservationService.deleteReservation(reservation);
+    public void deleteReservation(Integer reservationId) {
+        reservationService.deleteReservation(reservationId);
     }
 
     public Restaurant findRestaurantBySlug(String slug) {
@@ -41,5 +41,9 @@ public class AppFacade {
 
     public Restaurant findRestaurantById(int i) {
         return restaurantService.findById(i);
+    }
+
+    public Set<Reservation> getAllReservations() {
+        return reservationService.getAll();
     }
 }

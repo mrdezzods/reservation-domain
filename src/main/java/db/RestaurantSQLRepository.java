@@ -5,7 +5,9 @@ import domain.Restaurant;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class RestaurantSQLRepository implements RestaurantRepository {
 
@@ -31,9 +33,9 @@ public class RestaurantSQLRepository implements RestaurantRepository {
     }
 
 
-    public List<Restaurant> getAll() {
+    public Set<Restaurant> getAll() {
         List results = manager.createQuery("from Restaurant").getResultList();
-        return (List<Restaurant>) results;
+        return new HashSet<Restaurant>(results);
 
     }
 
