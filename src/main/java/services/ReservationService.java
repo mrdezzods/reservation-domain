@@ -30,4 +30,8 @@ public class ReservationService {
     public Set<Reservation> getAll() {
         return repository.getAll();
     }
+
+    public void acceptReservation(Integer reservationId) {
+        repository.acceptReservation(reservationId);
+    }
 }

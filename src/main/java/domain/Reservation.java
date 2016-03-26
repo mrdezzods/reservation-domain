@@ -1,9 +1,7 @@
 package domain;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -23,13 +21,11 @@ public class Reservation implements Serializable {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "restaurant_id")
-    @JsonBackReference
     private Restaurant restaurant;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
-    @JsonBackReference
-    @JsonProperty(value = "Client")
+    @Valid
     private Client client;
 
     @NotNull(message = "validation.reservation.people.notnull")
@@ -38,13 +34,14 @@ public class Reservation implements Serializable {
     private int people = 2;
 
     @Column(name = "reservation_for")
+    @NotNull(message = "validation.date.not.null")
     private Date reservationFor;
 
 
     private String note;
 
-    @Column(name = "status")
-    private ReservationStatus status;
+    @NotNull
+    private String status = "Pending";
 
     public int getId() {
         return id;
@@ -70,7 +67,7 @@ public class Reservation implements Serializable {
         return note;
     }
 
-    public ReservationStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
@@ -99,7 +96,7 @@ public class Reservation implements Serializable {
         this.note = note;
     }
 
-    public void setStatus(ReservationStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

@@ -14,4 +14,6 @@ public interface ReservationRepository {
     void deleteReservation(Integer reservation);
 
     Set<Reservation> getAll();
+
+    void acceptReservation(Integer reservationId);
 }

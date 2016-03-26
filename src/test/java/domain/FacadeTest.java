@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.util.Set;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -22,26 +23,26 @@ public class FacadeTest {
     }
 
     @Test
-    public void test_if_facade_returns_restaurants() {
+    public void testIfResturnsRestaurantsCorrectly() {
         Set restaurants = facade.getAllRestaurants();
         assertNotNull(restaurants);
     }
 
     @Test
-    public void test_if_facade_returns_restaurant_by_slug() {
+    public void testIfFindsRestaurantBySlug() {
         Restaurant restaurant = facade.findRestaurantBySlug("restaurant-1");
         assertNotNull(restaurant);
     }
 
     @Test(expected = DBException.class)
-    public void test_if_null_slug_throws_exception() {
+    public void testEmptySlugThrowsException() {
         facade.findRestaurantBySlug(null);
     }
 
 
     @Test(expected = DBException.class)
-    public void test_if_invalid_id_throws_exception() {
-        facade.findRestaurantById(-22);
+    public void testInvalidIdThrowsException() {
+        facade.findRestaurantById(22);
     }
 
 

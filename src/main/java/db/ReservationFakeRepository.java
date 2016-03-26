@@ -46,4 +46,15 @@ public class ReservationFakeRepository implements ReservationRepository {
     public Set<Reservation> getAll() {
         return reservations;
     }
+
+    public void acceptReservation(Integer reservationId) {
+        for (Reservation reservation : this.reservations) {
+            if (reservation.getId() == reservationId) {
+                reservation.setStatus("Accepted");
+                return;
+            }
+        }
+
+        throw new DBException("Reservation not found");
+    }
 }

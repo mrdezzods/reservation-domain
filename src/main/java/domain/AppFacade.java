@@ -46,4 +46,8 @@ public class AppFacade {
     public Set<Reservation> getAllReservations() {
         return reservationService.getAll();
     }
+
+    public void acceptReservation(Integer reservationId) {
+        reservationService.acceptReservation(reservationId);
+    }
 }

@@ -6,6 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -42,7 +44,9 @@ public class ReservationSQLRepository implements ReservationRepository {
         } catch (Exception ex) {
             throw new DBException(ex.getMessage(), ex);
         } finally {
-            tx.rollback();
+            if (tx.isActive()) {
+                tx.rollback();
+            }
         }
     }
 
@@ -56,12 +60,48 @@ public class ReservationSQLRepository implements ReservationRepository {
         }
     }
 
-    public void deleteReservation(Integer reservation) {
-
+    public void deleteReservation(Integer reservationId) {
+        EntityTransaction tx = null;
+        try {
+            tx = manager.getTransaction();
+            tx.begin();
+            manager.remove(get(reservationId));
+            tx.commit();
+        } catch (Exception ex) {
+            throw new DBException(ex.getMessage(), ex);
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
     }
 
     public Set<Reservation> getAll() {
-        return null;
+        try {
+            List<Reservation> reservations = manager.createQuery("from Reservation ").getResultList();
+            return new HashSet<Reservation>(reservations);
+        } catch (Exception ex) {
+            throw new DBException(ex.getMessage(), ex);
+        }
+
+    }
+
+    public void acceptReservation(Integer reservationId) {
+        EntityTransaction tx = null;
+        try {
+            Reservation reservation = get(reservationId);
+            reservation.setStatus("Accepted");
+            tx = manager.getTransaction();
+            tx.begin();
+            manager.persist(reservation);
+            tx.commit();
+        } catch (Exception ex) {
+            throw new DBException(ex.getMessage(), ex);
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
     }
 
 }
