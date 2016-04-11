@@ -28,13 +28,13 @@ public class Reservation implements Serializable {
     @Valid
     private Client client;
 
-    @NotNull(message = "validation.reservation.people.notnull")
-    @Max(value = 10, message = "validation.reservation.people.max")
-    @Min(value = 1, message = "validation.reservation.people.min")
+    @NotNull(message = "{validation.reservation.people.notnull}")
+    @Max(value = 10, message = "{validation.reservation.people.max}")
+    @Min(value = 1, message = "{validation.reservation.people.min}")
     private int people = 2;
 
     @Column(name = "reservation_for")
-    @NotNull(message = "validation.date.not.null")
+    @NotNull(message = "{validation.date.not.null}")
     private Date reservationFor;
 
 

@@ -16,11 +16,11 @@ public class Client implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @NotEmpty(message = "validation.name.not.empty")
+    @NotEmpty(message = "{validation.name.not.empty}")
     private String name;
 
     @Email
-    @NotEmpty(message = "validation.email.not.empty")
+    @NotEmpty(message = "{validation.email.not.empty}")
     private String email;
 
     private String tel;
