@@ -1,5 +1,6 @@
 package domain;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -26,7 +27,8 @@ public class Client implements Serializable {
     private String tel;
 
     @OneToMany(mappedBy = "client")
-    @JsonManagedReference
+   // @JsonManagedReference
+    @JsonIgnore
     private List<Reservation> reservations;
 
     public int getId() {
@@ -45,6 +47,7 @@ public class Client implements Serializable {
         return tel;
     }
 
+    @JsonIgnore
     public List<Reservation> getReservations() {
         return reservations;
     }

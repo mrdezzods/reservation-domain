@@ -21,4 +21,5 @@ public interface RestaurantRepository {
     Restaurant findBySlug(String slug);
 
     Restaurant findById(Integer restaurantId);
+
 }

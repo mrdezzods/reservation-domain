@@ -1,5 +1,9 @@
 package domain;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.springframework.beans.factory.annotation.Required;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
@@ -19,13 +23,18 @@ public class Reservation implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
+    @JsonIgnore
+    //@JsonManagedReference
     private Restaurant restaurant;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     @Valid
+    //@JsonManagedReference
+    @JsonIgnore
     private Client client;
 
     @NotNull(message = "{validation.reservation.people.notnull}")
@@ -47,10 +56,17 @@ public class Reservation implements Serializable {
         return id;
     }
 
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id")
+    @JsonIgnore
     public Restaurant getRestaurant() {
         return restaurant;
     }
 
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id")
+    @Valid
+    @JsonIgnore
     public Client getClient() {
         return client;
     }

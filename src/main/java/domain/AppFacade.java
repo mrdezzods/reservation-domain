@@ -3,18 +3,23 @@ package domain;
 
 import services.ReservationService;
 import services.RestaurantService;
+import services.ReviewService;
 
+import java.util.List;
 import java.util.Set;
 
 public class AppFacade {
 
     private RestaurantService restaurantService;
 
-    public ReservationService reservationService;
+    private ReservationService reservationService;
+
+    private ReviewService reviewService;
 
     public AppFacade(String type) {
         reservationService = new ReservationService(type);
         restaurantService = new RestaurantService(type);
+        reviewService = new ReviewService();
     }
 
 
@@ -49,5 +54,9 @@ public class AppFacade {
 
     public void acceptReservation(Integer reservationId) {
         reservationService.acceptReservation(reservationId);
+    }
+
+    public List<Review> getReviewsFromWebservice(String slug) {
+        return this.reviewService.getReviewsFor(slug);
     }
 }

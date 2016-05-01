@@ -1,6 +1,8 @@
 package domain;
 
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import javax.persistence.*;
@@ -36,10 +38,12 @@ public class Restaurant implements Serializable {
     @Column(name = "max_reservations")
     private int maxReservations;
 
-    @OneToMany(mappedBy = "restaurant")
-    @JsonManagedReference
+    @OneToMany(mappedBy = "restaurant",fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Reservation> reservations;
 
+   // @JsonBackReference
+    @JsonIgnore
     public List<Reservation> getReservations() {
         return reservations;
     }
