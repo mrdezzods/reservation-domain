@@ -1,15 +1,12 @@
 package domain;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
-import org.springframework.beans.factory.annotation.Required;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -17,7 +14,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "reservations")
-public class Reservation implements Serializable {
+public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,16 +23,23 @@ public class Reservation implements Serializable {
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
-    @JsonIgnore
-    //@JsonManagedReference
+    @JsonManagedReference
     private Restaurant restaurant;
 
+
+    @Valid
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
-    @Valid
-    //@JsonManagedReference
-    @JsonIgnore
     private Client client;
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
 
     @NotNull(message = "{validation.reservation.people.notnull}")
     @Max(value = 10, message = "{validation.reservation.people.max}")
@@ -56,20 +60,11 @@ public class Reservation implements Serializable {
         return id;
     }
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaurant_id")
-    @JsonIgnore
+
     public Restaurant getRestaurant() {
         return restaurant;
     }
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_id")
-    @Valid
-    @JsonIgnore
-    public Client getClient() {
-        return client;
-    }
 
     public int getPeople() {
         return people;
@@ -93,10 +88,6 @@ public class Reservation implements Serializable {
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
     }
 
 

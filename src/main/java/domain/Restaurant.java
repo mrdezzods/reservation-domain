@@ -1,12 +1,9 @@
 package domain;
 
 
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +11,8 @@ import java.util.List;
  * Created by mrdezzods on 27/02/16.
  */
 @Entity
-
 @Table(name = "restaurants")
-public class Restaurant implements Serializable {
+public class Restaurant {
 
     @Id
     private Integer id;
@@ -38,12 +34,11 @@ public class Restaurant implements Serializable {
     @Column(name = "max_reservations")
     private int maxReservations;
 
-    @OneToMany(mappedBy = "restaurant",fetch = FetchType.LAZY)
-    @JsonIgnore
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Reservation> reservations;
 
-   // @JsonBackReference
-    @JsonIgnore
+
     public List<Reservation> getReservations() {
         return reservations;
     }
@@ -55,7 +50,6 @@ public class Restaurant implements Serializable {
         this.reservations.add(reservation);
     }
 
-    //  private List<Reservation> reservationList;
 
     public Integer getId() {
         return id;

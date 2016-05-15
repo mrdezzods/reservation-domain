@@ -6,12 +6,11 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "clients")
-public class Client implements Serializable {
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,10 +25,20 @@ public class Client implements Serializable {
 
     private String tel;
 
+
     @OneToMany(mappedBy = "client")
-   // @JsonManagedReference
-    @JsonIgnore
+    @JsonManagedReference
     private List<Reservation> reservations;
+
+    @JsonIgnore
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
 
     public int getId() {
         return id;
@@ -47,10 +56,6 @@ public class Client implements Serializable {
         return tel;
     }
 
-    @JsonIgnore
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -68,7 +73,5 @@ public class Client implements Serializable {
         this.tel = tel;
     }
 
-    public void setReservations(List<Reservation> reservations) {
-        this.reservations = reservations;
-    }
+
 }
