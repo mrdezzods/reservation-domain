@@ -32,7 +32,7 @@ public class Reservation {
 
 
     @Valid
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
     private Client client;
 
