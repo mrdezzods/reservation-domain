@@ -1,5 +1,8 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import javax.persistence.*;
@@ -14,6 +17,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "reservations")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Reservation {
 
     @Id
@@ -21,14 +25,14 @@ public class Reservation {
     private int id;
 
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "restaurant_id")
-    @JsonManagedReference
+    @JsonProperty
     private Restaurant restaurant;
 
 
     @Valid
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "client_id")
     private Client client;
 

@@ -1,6 +1,9 @@
 package domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import javax.persistence.*;
@@ -12,6 +15,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "restaurants")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Restaurant {
 
     @Id
@@ -34,8 +38,7 @@ public class Restaurant {
     @Column(name = "max_reservations")
     private int maxReservations;
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "restaurant")
     private List<Reservation> reservations;
 
 
